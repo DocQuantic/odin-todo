@@ -1,3 +1,7 @@
 import "./styles.css";
+import { todo } from "./modules/todo";
 
-console.log("Hello, World!")
+const newTodo = todo;
+
+console.log(newTodo)
+

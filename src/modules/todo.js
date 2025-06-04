@@ -1,5 +1,3 @@
-import "date-fns"
-
 class ToDo {
     constructor(title, description, dueDate, priority){
         this.title = title;
@@ -20,20 +18,25 @@ class ToDo {
 
     updateDueDate(value){
         this.dueDate = value;
+        this.updateDoneInTime();
     }
 
     updatePriority(value){
         this.priority = value;
     }
 
+    updateDoneInTime(){
+        this.isDoneInTime = this.isDone ? this.checkDoneInTime() : undefined;
+    }
+
     toggleIsDone(){
         this.isDone = this.isDone ? false : true;
-        this.checkDoneInTime()
+        this.updateDoneInTime();
     }
 
     checkDoneInTime(){
         const today = new Date();
-        this.isDoneInTime = today < this.dueDate ? true : false;
+        return today < this.dueDate ? true : false;
     }
 }
 

@@ -9,21 +9,8 @@ export default class ToDo {
         this.id = crypto.randomUUID();
     }
 
-    updateTitle(value){
-        this.title = value;
-    }
-
-    updateDescription(value){
-        this.description = value;
-    }
-
-    updateDueDate(value){
-        this.dueDate = value;
+    set dueDate(value){
         this.updateDoneInTime();
-    }
-
-    updatePriority(value){
-        this.priority = value;
     }
 
     updateDoneInTime(){

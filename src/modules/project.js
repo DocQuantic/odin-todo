@@ -1,5 +1,7 @@
 export default class Project {
-    constructor(){
+    constructor(title, description){
+        this.title = title;
+        this.description = description;
         this.todos = [];
         this.completion = 0;
     }

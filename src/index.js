@@ -1,7 +1,13 @@
 import "./styles.css";
-import { todo } from "./modules/todo";
+import { default as ToDo } from "./modules/todo";
+import { default as Project } from "./modules/project";
 
-const newTodo = todo;
+const project = new Project();
+const todo1 = new ToDo("todo1", "desc1", new Date(2022, 1, 22), 1);
+const todo2 = new ToDo("todo2", "desc2", new Date(2026, 1, 22), 1);
 
-console.log(newTodo)
+project.addTodo(todo1);
+project.addTodo(todo2);
+
+console.dir(project);
 

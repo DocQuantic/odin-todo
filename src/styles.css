@@ -56,10 +56,56 @@ main{
             align-items: center;
             gap: 3rem;
             width: fit-content;
+            margin-bottom: 1.5rem;
         }
     }
 }
 
 .sidebar{
     background-color: var(--white);
+}
+
+.project{
+    font-size: 1.5rem;
+    list-style: none;
+}
+
+.project-name{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* >50% */
+.completion-circle{
+    width: rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-image:
+    linear-gradient(90deg, var(--light-grey) 50%, transparent 50%),
+    linear-gradient(-90deg, var(--light-grey) 50%, transparent 50%);
+}
+
+/* <50% */
+.completion-circle{
+    width: 2rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-image:
+    linear-gradient(-90deg, var(--white) 50%, transparent 50%),
+    linear-gradient(90deg, var(--light-grey) 50%, transparent 50%);
+}
+
+.project-tasks{
+    padding: 1rem 3rem;
+    font-size: 1.3rem;
+    list-style: disc;
+    > li{
+        margin-bottom: 0.35rem;
+    }
+    > li::marker{
+        color: green;
+        font-size: 2rem;
+
+    }
 }

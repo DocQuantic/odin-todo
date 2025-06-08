@@ -30,6 +30,14 @@ h2{
     font-size: 2rem;
 }
 
+h3{
+    font-size: 1.5rem;
+}
+
+p{
+    font-size: 1.2rem;
+}
+
 header{
     background-color: var(--light-grey);
     grid-column: 1 / -1;
@@ -74,11 +82,12 @@ main{
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    gap: 0.5rem;
 }
 
 /* >50% */
 .completion-circle{
-    width: rem;
+    width: 0.9rem;
     aspect-ratio: 1;
     border-radius: 50%;
     background-image:
@@ -88,7 +97,7 @@ main{
 
 /* <50% */
 .completion-circle{
-    width: 2rem;
+    width: 1.6rem;
     aspect-ratio: 1;
     border-radius: 50%;
     background-image:
@@ -105,7 +114,44 @@ main{
     }
     > li::marker{
         color: green;
-        font-size: 2rem;
+        font-size: 1.7rem;
+    }
+}
 
+.tasks-list{
+    padding: 0 2rem;
+}
+
+.task{
+    background-color: var(--dark-grey);
+    color: var(--white);
+    padding: 2rem 3rem;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px var(--light-grey);
+    border-left: 10px solid orangered;
+    > p{
+        margin-bottom: 1rem;
+    }
+
+    &.not-done{
+        border-color: orangered;
+    }
+
+    &.done{
+        border-color: green;
+    }
+
+    &.done-late{
+        border-color: orange;
+    }
+
+    > .task-border{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        > i:hover{
+            text-shadow: 0 0 5px var(--white);
+        }
     }
 }

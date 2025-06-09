@@ -30,11 +30,17 @@ h2{
     font-size: 2rem;
 }
 
-h3{
+h3,
+#tast-title{
+    font: inherit;
     font-size: 1.5rem;
 }
 
-p{
+p,
+textarea,
+input[type="date"],
+option{
+    font: inherit;
     font-size: 1.2rem;
 }
 
@@ -129,29 +135,41 @@ main{
     border-radius: 10px;
     box-shadow: 5px 5px 10px var(--light-grey);
     border-left: 10px solid orangered;
-    > p{
-        margin-bottom: 1rem;
-    }
+    > div{
+        > p,
+        > textarea{
+            margin-bottom: 1rem;
+        }
 
-    &.not-done{
-        border-color: orangered;
-    }
+        >textarea{
+            width: 100%;
+            height: fit-content;
+        }
 
-    &.done{
-        border-color: green;
-    }
+        &.not-done{
+            border-color: orangered;
+        }
 
-    &.done-late{
-        border-color: orange;
-    }
+        &.done{
+            border-color: green;
+        }
 
-    > .task-border{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-        > i:hover{
-            text-shadow: 0 0 5px var(--white);
+        &.done-late{
+            border-color: orange;
+        }
+
+        > .task-border{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            > i:hover{
+                text-shadow: 0 0 5px var(--white);
+            }
         }
     }
+}
+
+.hidden{
+    display: none;
 }

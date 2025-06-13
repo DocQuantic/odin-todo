@@ -6,20 +6,20 @@
     <title>Odin - To-Do</title>
 </head>
 <body>
-    <header>
+    <header class="flex-row">
         <img src="./images/checklist.svg" alt="checklist icon">
         <h1>To-Do</h1>
     </header>
     <main>
         <div class="sidebar">
-            <div class="sidebar title">
+            <div class="sidebar title flex-row">
                 <h2>Projects</h2>
                 <i id="new-project" class="fa-solid fa-plus"></i>
             </div>
             <div class="projects-list">
                 <ul class="project">
                     <li>
-                        <div class="project-name">
+                        <div class="project-name flex-row">
                             <div class="completion-circle"></div>
                             <span>Project 1</span>
                         </div>
@@ -32,45 +32,12 @@
             </div>
         </div>
         <div class="content">
-            <div class="tasks title">
+            <div class="tasks title flex-row">
                 <h2>Tasks</h2>
                 <i id="new-project" class="fa-solid fa-plus"></i>
             </div>
             <div class="tasks-list">
-                <div class="task not-done">
-                    <div class="hidden">
-                        <div class="task-border">
-                            <h3>Task 1</h3>
-                            <i class="fa-regular fa-pen-to-square"></i>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias neque tenetur iusto. Id, aspernatur facere sunt quae nisi molestiae illum eveniet laborum nobis praesentium dicta doloremque accusantium labore ut saepe.</p>
-                        <div class="task-border">
-                            <div>
-                                <p>22/02/2026</p>
-                                <p>Priority: <span>1</span></p>
-                            </div>
-                            <i class="fa-regular fa-square"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="task-border">
-                            <input id="task-title" name="task-title"></input>
-                            <i class="fa-regular fa-pen-to-square"></i>
-                        </div>
-                        <textarea rows="4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias neque tenetur iusto. Id, aspernatur facere sunt quae nisi molestiae illum eveniet laborum nobis praesentium dicta doloremque accusantium labore ut saepe.</textarea>
-                        <div class="task-border">
-                            <div>
-                                <input type="date"></input>
-                                <p>Priority: <select>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                </select></p>
-                            </div>
-                            <i class="fa-regular fa-square"></i>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </main>

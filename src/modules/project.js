@@ -21,6 +21,8 @@ export default class Project {
     addTodo(todo){
         this.todos.push(todo);
         this.checkCompletion();
+
+        todo.addTaskElementToDOM();
     }
 
     deleteTodo(todoID){
@@ -31,5 +33,8 @@ export default class Project {
             }
         })
         this.checkCompletion();
+
+        const todoElement = document.querySelector("div[data-attribute=" + todo.id + "]");
+        todoElement.remove();
     }
 }

@@ -44,13 +44,17 @@ option{
     font-size: 1.2rem;
 }
 
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
 header{
     background-color: var(--light-grey);
     grid-column: 1 / -1;
-    display: flex;
     justify-content: flex-start;
-    align-items: center;
-    gap: 1rem;
     padding: 0.3rem 1rem;
     > img{
         height: 6rem;
@@ -65,9 +69,7 @@ main{
     > * {
         padding: 1rem 2rem;
         > .title{
-            display: flex;
             justify-content: space-between;
-            align-items: center;
             gap: 3rem;
             width: fit-content;
             margin-bottom: 1.5rem;
@@ -85,9 +87,7 @@ main{
 }
 
 .project-name{
-    display: flex;
     justify-content: flex-start;
-    align-items: center;
     gap: 0.5rem;
 }
 
@@ -126,6 +126,9 @@ main{
 
 .tasks-list{
     padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .task{
@@ -135,37 +138,33 @@ main{
     border-radius: 10px;
     box-shadow: 5px 5px 10px var(--light-grey);
     border-left: 10px solid orangered;
-    > div{
-        > p,
-        > textarea{
-            margin-bottom: 1rem;
-        }
+    > p,
+    > textarea{
+        margin-bottom: 1rem;
+    }
 
-        >textarea{
-            width: 100%;
-            height: fit-content;
-        }
+    >textarea{
+        width: 100%;
+        height: fit-content;
+    }
 
-        &.not-done{
-            border-color: orangered;
-        }
+    &.not-done{
+        border-color: orangered;
+    }
 
-        &.done{
-            border-color: green;
-        }
+    &.done{
+        border-color: green;
+    }
 
-        &.done-late{
-            border-color: orange;
-        }
+    &.done-late{
+        border-color: orange;
+    }
 
-        > .task-border{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            > i:hover{
-                text-shadow: 0 0 5px var(--white);
-            }
+    > .task-border{
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        & i:hover{
+            text-shadow: 0 0 5px var(--white);
         }
     }
 }

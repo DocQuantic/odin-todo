@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export default class ToDo {
     constructor(title, description, dueDate, priority){
         this.title = title;
@@ -24,6 +26,10 @@ export default class ToDo {
         return today < this.dueDate ? true : false;
     }
 
+    formatDateForDisplay(date){
+        return format(date, "dd/MM/yyyy");
+    }
+
     addTaskElementToDOM(){
         const container = document.querySelector(".tasks-list");
 
@@ -42,10 +48,10 @@ export default class ToDo {
         taskBorderUp.classList.add("task-border", "flex-row");
 
         const taskTitle = document.createElement("h3");
-        taskTitle.classList.add("static");
+        taskTitle.classList.add("task-title", "static");
         taskTitle.textContent = this.title;
         const taskTitleEdit = document.createElement("input");
-        taskTitleEdit.classList.add("edit", "hidden");
+        taskTitleEdit.classList.add("task-title", "edit", "hidden");
         taskTitleEdit.setAttribute("value", this.title);
 
         const emptyDivUp = document.createElement("div");
@@ -53,43 +59,13 @@ export default class ToDo {
 
         const editIcon = document.createElement("i");
         editIcon.classList.add("fa-regular", "fa-pen-to-square");
-        editIcon.addEventListener("click", () => {
-            const editElements = task.querySelectorAll(".edit");
-            const staticElements = task.querySelectorAll(".static");
+        editIcon.setAttribute("id", "edit-btn");
+        editIcon.setAttribute("data-id", this.id);
 
-            if(this.isEditMode){
-                this.isEditMode = false;
-                editElements.forEach((editElement) => {
-                    editElement.classList.add("hidden");
-                })
-                staticElements.forEach((staticElement) => {
-                    staticElement.classList.remove("hidden");
-                })
-
-                this.title = taskTitleEdit.value;
-                this.description = taskDescriptionEdit.value;
-                this.dueDate = taskDateEdit.value;
-                this.priority = taskPriorityValueEdit.value;
-
-                taskTitle.textContent = this.title;
-                taskDescription.textContent = this.description;
-                taskDate.textContent = this.dueDate;
-                taskPriorityValue.textContent = this.priority;
-            } else {
-                this.isEditMode = true;
-                editElements.forEach((editElement) => {
-                    editElement.classList.remove("hidden");
-                })
-                staticElements.forEach((staticElement) => {
-                    staticElement.classList.add("hidden");
-                })
-            }
-        });
         const deleteIcon = document.createElement("i");
         deleteIcon.classList.add("fa-solid", "fa-trash");
-        deleteIcon.addEventListener("click", () => {
-            task.remove();
-        })
+        deleteIcon.setAttribute("id", "delete-btn");
+        deleteIcon.setAttribute("data-id", this.id);
 
         emptyDivUp.appendChild(editIcon);
         emptyDivUp.appendChild(deleteIcon);
@@ -99,10 +75,10 @@ export default class ToDo {
         taskBorderUp.appendChild(emptyDivUp);
 
         const taskDescription = document.createElement("p");
-        taskDescription.classList.add("static");
+        taskDescription.classList.add("task-description", "static");
         taskDescription.textContent = this.description;
         const taskDescriptionEdit = document.createElement("textarea");
-        taskDescriptionEdit.classList.add("edit", "hidden");
+        taskDescriptionEdit.classList.add("task-description", "edit", "hidden");
         taskDescriptionEdit.setAttribute("rows", "4");
         taskDescriptionEdit.textContent = this.description;
 
@@ -112,11 +88,11 @@ export default class ToDo {
         const emptyDiv = document.createElement("div");
 
         const taskDate = document.createElement("p");
-        taskDate.classList.add("static");
-        taskDate.textContent = this.dueDate;
+        taskDate.classList.add("task-date", "static");
+        taskDate.textContent = this.formatDateForDisplay(this.dueDate);
         
         const taskPriorityTitle = document.createElement("p");
-        taskPriorityTitle.classList.add("static");
+        taskPriorityTitle.classList.add("task-priority", "static");
         taskPriorityTitle.textContent = "Priority: ";
         
         const taskPriorityValue = document.createElement("span");
@@ -125,11 +101,11 @@ export default class ToDo {
         taskPriorityTitle.appendChild(taskPriorityValue);
 
         const taskDateEdit = document.createElement("input");
-        taskDateEdit.classList.add("edit", "hidden");
+        taskDateEdit.classList.add("task-date", "edit", "hidden");
         taskDateEdit.setAttribute("type", "date");
 
         const taskPriorityTitleEdit = document.createElement("p");
-        taskPriorityTitleEdit.classList.add("edit", "hidden");
+        taskPriorityTitleEdit.classList.add("task-priority", "edit", "hidden");
         taskPriorityTitleEdit.textContent = "Priority: ";
 
         const taskPriorityValueEdit = document.createElement("select");
@@ -148,27 +124,7 @@ export default class ToDo {
 
         const doneIcon = document.createElement("i");
         doneIcon.classList.add("fa-regular", "fa-square");
-        doneIcon.addEventListener("click", () => {
-            if(this.isDone){
-                doneIcon.classList.remove("fa-square-check");
-                doneIcon.classList.add("fa-square");
-                this.isDone = false;
-
-                task.classList.remove("done", "done-late");
-                task.classList.add("not-done");
-            } else {
-                doneIcon.classList.add("fa-square-check");
-                doneIcon.classList.remove("fa-square");
-                this.isDone = true;
-
-                task.classList.remove("not-done");
-                if(this.checkDoneInTime()){
-                    task.classList.add("done");
-                } else {
-                    task.classList.add("done-late");
-                }
-            }
-        })
+        doneIcon.setAttribute("id", "done-btn");
 
         taskBorderDown.appendChild(emptyDiv);
         taskBorderDown.appendChild(doneIcon);

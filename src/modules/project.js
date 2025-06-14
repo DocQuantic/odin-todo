@@ -33,8 +33,16 @@ export default class Project {
             }
         })
         this.checkCompletion();
+    }
 
-        const todoElement = document.querySelector("div[data-attribute=" + todo.id + "]");
-        todoElement.remove();
+    getTodoFromID(todoID){
+        let searchedTodo = null;
+        this.todos.forEach(function(todo) {
+            if(todo.id === todoID){
+                searchedTodo = todo;
+            }
+        })
+
+        return searchedTodo;
     }
 }

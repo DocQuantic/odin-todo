@@ -87,7 +87,9 @@ main{
 }
 
 .project:hover{
-    background-color: aqua;
+    & .project-name{
+        text-decoration: underline;
+    }
 }
 
 .project-name{

@@ -1,5 +1,13 @@
 import { focusedProject } from "..";
 
+export function editProjectTitle(){
+    console.log("edit project title");
+}
+
+export function deleteProjectFromDOM(){
+    console.log("delete project");
+}
+
 function editTodo(todoElement, todo, dataID){
     const editElements = todoElement.querySelectorAll(".edit");
     const staticElements = todoElement.querySelectorAll(".static");
@@ -83,7 +91,7 @@ function toggleTodoDone(todo, todoElement, doneIconElement, dataID){
     }
 }
 
-export function todoActions(event, todoElement) {
+function todoActions(event, todoElement) {
     const target = event.target;
 
     const dataID = todoElement.getAttribute("data-id");
@@ -257,8 +265,20 @@ export function addProjectElementToDOM(){
     const projectNameElement = document.createElement("span");
     projectNameElement.textContent = focusedProject.title;
 
+    const projectNameEditElement = document.createElement("i");
+    projectNameEditElement.classList.add("fa-regular", "fa-pen-to-square");
+    projectNameEditElement.setAttribute("id", "edit-project-btn");
+    projectNameEditElement.setAttribute("data-project-id", focusedProject.id);
+
+    const projectNameDeleteElement = document.createElement("i");
+    projectNameDeleteElement.classList.add("fa-solid", "fa-trash");
+    projectNameDeleteElement.setAttribute("id", "delete-project-btn");
+    projectNameDeleteElement.setAttribute("data-project-id", focusedProject.id);
+
     projectNameDivElement.appendChild(projectCompletionElement);
     projectNameDivElement.appendChild(projectNameElement);
+    projectNameDivElement.appendChild(projectNameEditElement);
+    projectNameDivElement.appendChild(projectNameDeleteElement);
 
     const projectTodoListElement = document.createElement("ul")
     projectTodoListElement.classList.add("project-todos");

@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import "./styles.css";
 import { default as ToDo } from "./modules/todo";
 import { default as Project } from "./modules/project";
-import { todoActions, addToDoToCurrentProject, addProjectElementToDOM, renderProjectTodos } from "./modules/UI_interaction";
+import { addToDoToCurrentProject, addProjectElementToDOM, renderProjectTodos, editProjectTitle, deleteProjectFromDOM } from "./modules/UI_interaction";
 
 export let focusedProject = undefined;
 let projectsList = [];
@@ -23,13 +23,6 @@ const newToDoBtn = document.querySelector("#new-todo");
 newToDoBtn.addEventListener("click", () => {
     const todo = new ToDo("Title", "description", new Date(), 1);
     addToDoToCurrentProject(todo);
-
-    /*
-    const todoElement = document.querySelector(".todo[data-id='" + todo.id + "']");
-    todoElement.addEventListener("click", (event) => {
-        todoActions(event, todoElement);
-    })
-        */
 })
 
 const newProjectBtn = document.querySelector("#new-project");
@@ -39,11 +32,20 @@ newProjectBtn.addEventListener("click", () => {
     projectsList.push(project);
     const projectElement = addProjectElementToDOM();
     renderProjectTodos();
-    projectElement.addEventListener("click", function() {
+    projectElement.addEventListener("click", function(event) {
         const project = getProjectFromID(this.getAttribute("data-projectid"));
         if(project !== focusedProject){
             focusedProject = project;
             renderProjectTodos();
+        }
+
+        switch(event.target.id){
+            case "edit-project-btn":
+                editProjectTitle();
+                break;
+            case "delete-project-btn":
+                deleteProjectFromDOM();
+                break;
         }
     })
 })

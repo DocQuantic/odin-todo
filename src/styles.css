@@ -87,14 +87,22 @@ main{
 }
 
 .project:hover{
-    & .project-name{
+    & .project-name > span{
         text-decoration: underline;
     }
 }
 
 .project-name{
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: min-content 1fr min-content min-content;
+    align-items: center;
     gap: 0.5rem;
+    > i{
+        justify-self: end;
+    }
+    > i:hover{
+        text-shadow: 0 0 2px var(--black);
+    }
 }
 
 /* >50% */
@@ -178,7 +186,7 @@ main{
         justify-content: space-between;
         margin-bottom: 1rem;
         & i:hover{
-            text-shadow: 0 0 5px var(--white);
+            text-shadow: 0 0 2px var(--white);
         }
     }
 }

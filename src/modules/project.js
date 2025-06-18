@@ -43,35 +43,4 @@ export default class Project {
 
         return searchedTodo;
     }
-
-    addProjectElementToDOM(){
-        const container = document.querySelector(".projects-list");
-
-        const projectElement = document.createElement("ul");
-        projectElement.classList.add("project");
-        projectElement.setAttribute("data-projectID", this.id);
-
-        const projectListElement = document.createElement("li");
-
-        const projectNameDivElement = document.createElement("div");
-        projectNameDivElement.classList.add("project-name", "flex-row");
-
-        const projectCompletionElement = document.createElement("div");
-        projectCompletionElement.classList.add("completion-circle");
-        const projectNameElement = document.createElement("span");
-        projectNameElement.textContent = this.title;
-
-        projectNameDivElement.appendChild(projectCompletionElement);
-        projectNameDivElement.appendChild(projectNameElement);
-
-        const projectTodoListElement = document.createElement("ul")
-        projectTodoListElement.classList.add("project-todos");
-
-        projectListElement.appendChild(projectNameDivElement);
-        projectListElement.appendChild(projectTodoListElement);
-
-        projectElement.appendChild(projectListElement);
-
-        container.appendChild(projectElement);
-    }
 }

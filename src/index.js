@@ -3,26 +3,47 @@ import { format } from "date-fns";
 import "./styles.css";
 import { default as ToDo } from "./modules/todo";
 import { default as Project } from "./modules/project";
-import { todoActions, addToDoToCurrentProject } from "./modules/UI_interaction";
+import { todoActions, addToDoToCurrentProject, addProjectElementToDOM, renderProjectTodos } from "./modules/UI_interaction";
 
-const project = new Project("Project1");
-const todo1 = new ToDo("todo1", "desc1", new Date(2022, 1, 22), 1);
-const todo2 = new ToDo("todo2", "desc2", new Date(2026, 1, 22), 1);
+export let focusedProject = undefined;
+let projectsList = [];
 
-project.addTodo(todo1);
-project.addTodo(todo2);
+function getProjectFromID(projectID){
+    let searchedProject = null;
+    projectsList.forEach(function(project) {
+        if(project.id === projectID){
+            searchedProject = project;
+        }
+    })
 
-project.addProjectElementToDOM();
-
-let focusedProject = project;
+    return searchedProject;
+}
 
 const newToDoBtn = document.querySelector("#new-todo");
-newToDoBtn.addEventListener("click", (event) => {
+newToDoBtn.addEventListener("click", () => {
     const todo = new ToDo("Title", "description", new Date(), 1);
-    addToDoToCurrentProject(focusedProject, todo);
+    addToDoToCurrentProject(todo);
 
+    /*
     const todoElement = document.querySelector(".todo[data-id='" + todo.id + "']");
     todoElement.addEventListener("click", (event) => {
-        todoActions(event, todoElement, focusedProject);
+        todoActions(event, todoElement);
+    })
+        */
+})
+
+const newProjectBtn = document.querySelector("#new-project");
+newProjectBtn.addEventListener("click", () => {
+    const project = new Project("Project");
+    focusedProject = project;
+    projectsList.push(project);
+    const projectElement = addProjectElementToDOM();
+    renderProjectTodos();
+    projectElement.addEventListener("click", function() {
+        const project = getProjectFromID(this.getAttribute("data-projectid"));
+        if(project !== focusedProject){
+            focusedProject = project;
+            renderProjectTodos();
+        }
     })
 })

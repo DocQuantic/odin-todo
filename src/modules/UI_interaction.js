@@ -1,4 +1,6 @@
-function editTodo(project, todoElement, todo, dataID){
+import { focusedProject } from "..";
+
+function editTodo(todoElement, todo, dataID){
     const editElements = todoElement.querySelectorAll(".edit");
     const staticElements = todoElement.querySelectorAll(".static");
 
@@ -13,7 +15,7 @@ function editTodo(project, todoElement, todo, dataID){
 
         todo.title = editElements[0].value;
         todo.description = editElements[1].value;
-        todo.dueDate = editElements[2].value;
+        todo.dueDate = new Date(editElements[2].value.split("-")[0], editElements[2].value.split("-")[1]-1, editElements[2].value.split("-")[2]);
         todo.priority = editElements[3].value;
 
         staticElements[0].textContent = todo.title;
@@ -30,24 +32,25 @@ function editTodo(project, todoElement, todo, dataID){
         })
     }
 
-    const projectElement = document.querySelector(".project[data-projectid='" + project.id + "']");
-    const projectTodoElement = projectElement.querySelector("li[data-id='" + dataID + "']")
+    const projectElement = document.querySelector(".project[data-projectid='" + focusedProject.id + "']");
+    const projectTodoElement = projectElement.querySelector("li[data-id='" + dataID + "']");
     projectTodoElement.childNodes[0].textContent = todo.title;
 }
 
-function removeProjectTodoElement(project, dataID){
-    const projectElement = document.querySelector(".project[data-projectid='" + project.id + "']");
+function removeProjectTodoElement(dataID){
+    const projectElement = document.querySelector(".project[data-projectid='" + focusedProject.id + "']");
     const todoElement = projectElement.querySelector("li[data-id='" + dataID + "']")
     todoElement.remove();
 }
 
-function deleteTodo(todoElement, project, dataID){
-    removeProjectTodoElement(project, dataID);
+function deleteTodo(todoElement, dataID){
+    removeProjectTodoElement(dataID);
     todoElement.remove();
-    project.deleteTodo(dataID);
+    focusedProject.deleteTodo(dataID);
 }
 
-function toggleTodoDone(project, todo, todoElement, doneIconElement, dataID){
+function toggleTodoDone(todo, todoElement, doneIconElement, dataID){
+
     if(todo.isDone){
         doneIconElement.classList.remove("fa-square-check");
         doneIconElement.classList.add("fa-square");
@@ -58,17 +61,17 @@ function toggleTodoDone(project, todo, todoElement, doneIconElement, dataID){
     } else {
         doneIconElement.classList.add("fa-square-check");
         doneIconElement.classList.remove("fa-square");
-        todo.isDone = true;
+        todo.toggleIsDone();
 
         todoElement.classList.remove("not-done");
-        if(todo.checkDoneInTime()){
+        if(todo.isDoneInTime){
             todoElement.classList.add("done");
         } else {
             todoElement.classList.add("done-late");
         }
     }
 
-    const projectElement = document.querySelector(".project[data-projectid='" + project.id + "']");
+    const projectElement = document.querySelector(".project[data-projectid='" + focusedProject.id + "']");
     const projectTodoElement = projectElement.querySelector("li[data-id='" + dataID + "']")
     projectTodoElement.classList.remove("done", "done-late", "not-done");
     if(todo.isDone === false){
@@ -80,21 +83,21 @@ function toggleTodoDone(project, todo, todoElement, doneIconElement, dataID){
     }
 }
 
-export function todoActions(event, todoElement, project) {
+export function todoActions(event, todoElement) {
     const target = event.target;
 
     const dataID = todoElement.getAttribute("data-id");
-    const todo = project.getTodoFromID(dataID);
+    const todo = focusedProject.getTodoFromID(dataID);
 
     switch(target.id){
         case "edit-btn":
-            editTodo(project, todoElement, todo, dataID);
+            editTodo(todoElement, todo, dataID);
             break;
         case "delete-btn":
-            deleteTodo(todoElement, project, dataID);
+            deleteTodo(todoElement, dataID);
             break;
         case "done-btn":
-            toggleTodoDone(project, todo, todoElement, target, dataID);
+            toggleTodoDone(todo, todoElement, target, dataID);
             break;
     }
 }
@@ -165,7 +168,7 @@ function addTodoElementToDOM(todo){
     todoElementPriorityTitle.textContent = "Priority: ";
     
     const todoElementPriorityValue = document.createElement("span");
-    todoElementPriorityValue.textContent = todo.priority.toString();
+    todoElementPriorityValue.textContent = todo.priority;
 
     todoElementPriorityTitle.appendChild(todoElementPriorityValue);
 
@@ -204,10 +207,14 @@ function addTodoElementToDOM(todo){
     todoElement.appendChild(todoElementBorderDown);
 
     container.appendChild(todoElement);
+    
+    todoElement.addEventListener("click", (event) => {
+        todoActions(event, todoElement);
+    })
 }
 
-function addToDoElementToProjectElement(project, todo){
-    const currentProjectElement = document.querySelector(".project[data-projectID='" + project.id + "']");
+function addToDoElementToProjectElement(todo){
+    const currentProjectElement = document.querySelector(".project[data-projectID='" + focusedProject.id + "']");
 
     const todosListElement = currentProjectElement.querySelector(".project-todos");
 
@@ -227,8 +234,52 @@ function addToDoElementToProjectElement(project, todo){
     todosListElement.appendChild(todoElement);
 }
 
-export function addToDoToCurrentProject(project, todo){
-    project.addTodo(todo);
-    const todoElement = addTodoElementToDOM(todo);
-    addToDoElementToProjectElement(project, todo);
+export function addToDoToCurrentProject(todo){
+    focusedProject.addTodo(todo);
+    addTodoElementToDOM(todo);
+    addToDoElementToProjectElement(todo);
+}
+
+export function addProjectElementToDOM(){
+    const container = document.querySelector(".projects-list");
+
+    const projectElement = document.createElement("ul");
+    projectElement.classList.add("project");
+    projectElement.setAttribute("data-projectID", focusedProject.id);
+
+    const projectListElement = document.createElement("li");
+
+    const projectNameDivElement = document.createElement("div");
+    projectNameDivElement.classList.add("project-name", "flex-row");
+
+    const projectCompletionElement = document.createElement("div");
+    projectCompletionElement.classList.add("completion-circle");
+    const projectNameElement = document.createElement("span");
+    projectNameElement.textContent = focusedProject.title;
+
+    projectNameDivElement.appendChild(projectCompletionElement);
+    projectNameDivElement.appendChild(projectNameElement);
+
+    const projectTodoListElement = document.createElement("ul")
+    projectTodoListElement.classList.add("project-todos");
+
+    projectListElement.appendChild(projectNameDivElement);
+    projectListElement.appendChild(projectTodoListElement);
+
+    projectElement.appendChild(projectListElement);
+
+    container.appendChild(projectElement);
+
+    return projectElement;
+}
+
+export function renderProjectTodos(){
+    const todos = document.querySelectorAll(".todo");
+    todos.forEach((todo) => {
+        todo.remove();
+    })
+
+    focusedProject.todos.forEach((todo) => {
+        addTodoElementToDOM(todo);
+    })
 }

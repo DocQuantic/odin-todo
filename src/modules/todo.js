@@ -12,17 +12,17 @@ export default class ToDo {
         this.isEditMode = false;
     }
 
-    updateDoneInTime(){
-        this.isDoneInTime = this.isDone ? this.checkDoneInTime() : undefined;
-    }
-
     toggleIsDone(){
         this.isDone = this.isDone ? false : true;
         this.updateDoneInTime();
     }
 
+    updateDoneInTime(){
+        this.isDoneInTime = this.isDone ? this.checkDoneInTime() : undefined;
+    }
+
     checkDoneInTime(){
-        const today = new Date();
+        const today = new Date()
         return today < this.dueDate ? true : false;
     }
 

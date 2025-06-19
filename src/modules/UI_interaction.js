@@ -149,10 +149,10 @@ function addTodoElementToDOM(todo){
     todoElementBorderUp.classList.add("todo-border", "flex-row");
 
     const todoElementTitle = document.createElement("h3");
-    todoElementTitle.classList.add("todo-title", "static");
+    todoElementTitle.classList.add("todo-title", "static", "hidden");
     todoElementTitle.textContent = todo.title;
     const todoElementTitleEdit = document.createElement("input");
-    todoElementTitleEdit.classList.add("todo-title", "edit", "hidden");
+    todoElementTitleEdit.classList.add("todo-title", "edit");
     todoElementTitleEdit.setAttribute("value", todo.title);
 
     const emptyDivUp = document.createElement("div");
@@ -176,10 +176,10 @@ function addTodoElementToDOM(todo){
     todoElementBorderUp.appendChild(emptyDivUp);
 
     const todoElementDescription = document.createElement("p");
-    todoElementDescription.classList.add("todo-description", "static");
+    todoElementDescription.classList.add("todo-description", "static", "hidden");
     todoElementDescription.textContent = todo.description;
     const todoElementDescriptionEdit = document.createElement("textarea");
-    todoElementDescriptionEdit.classList.add("todo-description", "edit", "hidden");
+    todoElementDescriptionEdit.classList.add("todo-description", "edit");
     todoElementDescriptionEdit.setAttribute("rows", "4");
     todoElementDescriptionEdit.textContent = todo.description;
 
@@ -189,11 +189,11 @@ function addTodoElementToDOM(todo){
     const emptyDiv = document.createElement("div");
 
     const todoElementDate = document.createElement("p");
-    todoElementDate.classList.add("todo-date", "static");
+    todoElementDate.classList.add("todo-date", "static", "hidden");
     todoElementDate.textContent = todo.formatDateForDisplay(todo.dueDate);
     
     const todoElementPriorityTitle = document.createElement("p");
-    todoElementPriorityTitle.classList.add("todo-priority", "static");
+    todoElementPriorityTitle.classList.add("todo-priority", "static", "hidden");
     todoElementPriorityTitle.textContent = "Priority: ";
     
     const todoElementPriorityValue = document.createElement("span");
@@ -202,11 +202,11 @@ function addTodoElementToDOM(todo){
     todoElementPriorityTitle.appendChild(todoElementPriorityValue);
 
     const todoElementDateEdit = document.createElement("input");
-    todoElementDateEdit.classList.add("todo-date", "edit", "hidden");
+    todoElementDateEdit.classList.add("todo-date", "edit");
     todoElementDateEdit.setAttribute("type", "date");
 
     const todoElementPriorityTitleEdit = document.createElement("p");
-    todoElementPriorityTitleEdit.classList.add("todo-priority", "edit", "hidden");
+    todoElementPriorityTitleEdit.classList.add("todo-priority", "edit");
     todoElementPriorityTitleEdit.textContent = "Priority: ";
 
     const todoElementPriorityValueEdit = document.createElement("select");

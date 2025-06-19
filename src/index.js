@@ -19,6 +19,18 @@ function getProjectFromID(projectID){
     return searchedProject;
 }
 
+function deleteProject(projectID){
+    console.log(projectsList);
+    projectsList.forEach((project) => {
+        if(project.id === projectID){
+            const index = projectsList.indexOf(project);
+            projectsList.splice(index, 1);
+        }
+    })
+
+    console.log(projectsList);
+}
+
 const newToDoBtn = document.querySelector("#new-todo");
 newToDoBtn.addEventListener("click", () => {
     const todo = new ToDo("Title", "description", new Date(), 1);
@@ -45,6 +57,7 @@ newProjectBtn.addEventListener("click", () => {
                 break;
             case "delete-project-btn":
                 deleteProjectFromDOM();
+                deleteProject(focusedProject.id)
                 break;
         }
     })

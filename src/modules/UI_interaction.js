@@ -1,11 +1,12 @@
 import { focusedProject } from "..";
 
 export function editProjectTitle(){
-    console.log("edit project title");
+    const projectElement = document.querySelector("[data-projectid='" + focusedProject.id + "']");
 }
 
 export function deleteProjectFromDOM(){
-    console.log("delete project");
+    const projectElement = document.querySelector("[data-projectid='" + focusedProject.id + "']");
+    projectElement.remove();
 }
 
 function editTodo(todoElement, todo, dataID){

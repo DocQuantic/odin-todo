@@ -287,9 +287,10 @@ export function addProjectElementToDOM(){
     const projectNameElementContainer = document.createElement("div");
 
     const projectNameElement = document.createElement("span");
+    projectNameElement.classList.add("hidden");
     projectNameElement.textContent = focusedProject.title;
     const projectNameElementEdit = document.createElement("input");
-    projectNameElementEdit.classList.add("edit", "hidden");
+    projectNameElementEdit.classList.add("edit");
     projectNameElementEdit.setAttribute("value", focusedProject.title);
 
     projectNameElementContainer.appendChild(projectNameElement);

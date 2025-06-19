@@ -4,6 +4,7 @@ export default class Project {
         this.todos = [];
         this.completion = 0;
         this.id = crypto.randomUUID();
+        this.isEditMode = false;
     }
 
     checkCompletion(){

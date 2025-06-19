@@ -2,6 +2,26 @@ import { focusedProject } from "..";
 
 export function editProjectTitle(){
     const projectElement = document.querySelector("[data-projectid='" + focusedProject.id + "']");
+    
+    const editElement = projectElement.querySelector(".edit");
+    const staticElement = projectElement.querySelector("span");
+    
+    if(focusedProject.isEditMode){
+        focusedProject.isEditMode = false;
+
+        editElement.classList.add("hidden");
+        staticElement.classList.remove("hidden");
+
+        focusedProject.title = editElement.value;
+        staticElement.textContent = editElement.value;
+
+        console.log(focusedProject);
+    }else{
+        focusedProject.isEditMode = true;
+
+        editElement.classList.remove("hidden");
+        staticElement.classList.add("hidden");
+    }
 }
 
 export function deleteProjectFromDOM(){
@@ -263,8 +283,17 @@ export function addProjectElementToDOM(){
 
     const projectCompletionElement = document.createElement("div");
     projectCompletionElement.classList.add("completion-circle");
+
+    const projectNameElementContainer = document.createElement("div");
+
     const projectNameElement = document.createElement("span");
     projectNameElement.textContent = focusedProject.title;
+    const projectNameElementEdit = document.createElement("input");
+    projectNameElementEdit.classList.add("edit", "hidden");
+    projectNameElementEdit.setAttribute("value", focusedProject.title);
+
+    projectNameElementContainer.appendChild(projectNameElement);
+    projectNameElementContainer.appendChild(projectNameElementEdit);
 
     const projectNameEditElement = document.createElement("i");
     projectNameEditElement.classList.add("fa-regular", "fa-pen-to-square");
@@ -277,7 +306,7 @@ export function addProjectElementToDOM(){
     projectNameDeleteElement.setAttribute("data-project-id", focusedProject.id);
 
     projectNameDivElement.appendChild(projectCompletionElement);
-    projectNameDivElement.appendChild(projectNameElement);
+    projectNameDivElement.appendChild(projectNameElementContainer);
     projectNameDivElement.appendChild(projectNameEditElement);
     projectNameDivElement.appendChild(projectNameDeleteElement);
 

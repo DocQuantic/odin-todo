@@ -41,8 +41,10 @@ export function deleteProjectFromDOM(){
     const projectElement = document.querySelector("[data-projectid='" + focusedProject.id + "']");
     projectElement.remove();
 
-    const todosList = document.querySelector(".todos-list");
-    todosList.remove();
+    const todosList = document.querySelectorAll(".todo");
+    todosList.forEach((todo) => {
+        todo.remove();
+    })
 }
 
 function editTodo(todoElement, todo, dataID){

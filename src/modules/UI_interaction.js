@@ -30,17 +30,9 @@ function updateProjectCompletion(){
     const circleElement = projectElement.querySelector("[class^='completion-circle']");
 
     if(focusedProject.completion <=0.5){
-        console.log("less than half");
-        circleElement.classList.remove("completion-circle-more-half");
-        circleElement.classList.add("completion-circle-less-half");
-
         circleElement.style["background-image"] = `linear-gradient(-90deg, var(--white) 50%, transparent 50%), linear-gradient(${270 - focusedProject.completion * 360}deg, var(--light-grey) 50%, transparent 50%)`;
 
     }else{
-        console.log("more than half")
-        circleElement.classList.remove("completion-circle-less-half");
-        circleElement.classList.add("completion-circle-more-half");
-
         circleElement.style["background-image"] = `linear-gradient(${90 - (focusedProject.completion - 0.5) * 360}deg, var(--light-grey) 50%, transparent 50%), linear-gradient(90deg, var(--light-grey) 50%, transparent 50%)`;
     }
 }
@@ -308,7 +300,7 @@ export function addProjectElementToDOM(){
     projectNameDivElement.classList.add("project-name", "flex-row");
 
     const projectCompletionElement = document.createElement("div");
-    projectCompletionElement.classList.add("completion-circle-less-half");
+    projectCompletionElement.classList.add("completion-circle");
 
     const projectNameElementContainer = document.createElement("div");
 

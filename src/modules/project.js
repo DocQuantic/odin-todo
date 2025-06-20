@@ -4,7 +4,7 @@ export default class Project {
         this.todos = [];
         this.completion = 0;
         this.id = crypto.randomUUID();
-        this.isEditMode = false;
+        this.isEditMode = true;
     }
 
     checkCompletion(){
@@ -17,6 +17,7 @@ export default class Project {
         })
 
         this.completion = completedTodos/totalTodos;
+        console.log(this.completion)
     }
 
     addTodo(todo){

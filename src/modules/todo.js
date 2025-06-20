@@ -9,7 +9,7 @@ export default class ToDo {
         this.isDone = false;
         this.isDoneInTime = undefined;
         this.id = crypto.randomUUID();
-        this.isEditMode = false;
+        this.isEditMode = true;
     }
 
     toggleIsDone(){

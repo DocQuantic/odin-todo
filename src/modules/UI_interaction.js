@@ -83,6 +83,7 @@ function addTodoElementToDOM(todo){
     const todoElementDateEdit = document.createElement("input");
     todoElementDateEdit.classList.add("todo-date", "edit");
     todoElementDateEdit.setAttribute("type", "date");
+    todoElementDateEdit.setAttribute("value", todo.formatDateForEdit(todo.dueDate));
 
     const todoElementPriorityTitleEdit = document.createElement("p");
     todoElementPriorityTitleEdit.classList.add("todo-priority", "edit");

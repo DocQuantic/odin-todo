@@ -29,4 +29,8 @@ export default class ToDo {
     formatDateForDisplay(date){
         return format(date, "dd/MM/yyyy");
     }
+
+    formatDateForEdit(date){
+        return format(date, "yyyy-MM-dd");
+    }
 }

@@ -288,8 +288,8 @@ export function createProjectElement(project){
                 editProjectTitle();
                 break;
             case "delete-project-btn":
+                deleteProject(focusedProject.id);
                 deleteProjectFromDOM();
-                deleteProject(focusedProject.id)
                 break;
         }
     })

@@ -25,8 +25,10 @@ function initDOMFromProjectsList(){
 
 const newToDoBtn = document.querySelector("#new-todo");
 newToDoBtn.addEventListener("click", () => {
-    const todo = new ToDo("Title", "description", new Date(), 1);
-    addToDoToCurrentProject(todo);
+    if(projectsList.length !== 0){
+        const todo = new ToDo("Title", "description", new Date(), 1);
+        addToDoToCurrentProject(todo);
+    }
 })
 
 const newProjectBtn = document.querySelector("#new-project");

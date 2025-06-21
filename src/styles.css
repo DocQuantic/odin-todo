@@ -44,6 +44,10 @@ option{
     font-size: 1.2rem;
 }
 
+i:hover{
+    text-shadow: 0 0 2px var(--black);
+}
+
 .flex-row{
     display: flex;
     flex-direction: row;
@@ -99,9 +103,6 @@ main{
     gap: 0.5rem;
     > i{
         justify-self: end;
-    }
-    > i:hover{
-        text-shadow: 0 0 2px var(--black);
     }
 }
 

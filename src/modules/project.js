@@ -17,7 +17,6 @@ export default class Project {
         })
 
         this.completion = completedTodos/totalTodos;
-        console.log(this.completion)
     }
 
     addTodo(todo){
